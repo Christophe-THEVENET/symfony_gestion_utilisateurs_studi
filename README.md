@@ -14,6 +14,4 @@ L'objectif de se projet:
 
 - seul l'admin peut les supprimer
 
-<center>
 ![Game Image](./ToutPasCher.png)
-</center>
