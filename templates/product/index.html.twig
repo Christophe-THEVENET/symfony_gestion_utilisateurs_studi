@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}liste des produits{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
+    <h1>liste des produits</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom du produit</th>
+                <th>Vendeur</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,9 +19,10 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
+                <td>{{ product.user.username }}</td>
                 <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}">voir</a>
+                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
+    <a href="{{ path('app_product_new') }}">ajouter un produit</a>
 {% endblock %}
