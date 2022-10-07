@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1>Edit User {{user.username}}</h1>
+
+    {# {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}  #} 
+
+ {{ form_start(form) }} 
+
+{{ form_row(form.username) }} 
+{# {{ form_row(form.plainpassword) }} #}
+
+<label for="pet-select">Choose a pet:</label>
+
+<select name="Roles" id="pet-select">
+    <option value="">--Choisir le rôle de l'utilisateur--</option>
+    <option value="ROLE_USER">User</option>
+    <option value="ROLE_PARTNER">Partner</option>
+    <option value="ROLE_ADMIN">Admin</option>
+</select>
+
+
+{# {{ form_widget(form) }} #}
+
+
+<button class="btn">{{ button_label|default('Save') }}</button>
+{# {{ form_end(form) }} #}
+
+
+
+    <a href="{{ path('app_user_index') }}">back to list</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}
+
+

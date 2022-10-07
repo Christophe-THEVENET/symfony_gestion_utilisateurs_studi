@@ -1,0 +1,40 @@
+.alert-password {
+  position: absolute;
+  top: 150px;
+  background-color: rgba(240, 17, 17, 0.596);
+  padding: 5px;
+  border-radius: 5px;
+  display: none;
+}
+
+#eye1 {
+  position: relative;
+  top: -47px;
+  right: -220px;
+  cursor: pointer;
+}
+
+#eye1.active::before {
+  content: '\f070';
+}
+
+#eye2 {
+  position: relative;
+  top: -31px;
+  right: -220px;
+  cursor: pointer;
+}
+
+#eye2.active::before {
+  content: '\f070';
+}
+
+#register-form li {
+  list-style-type: none;
+  position: absolute;
+  top: 150px;
+  background-color: rgba(240, 64, 64, 0.692);
+  padding: 4px;
+  border-radius: 5px;
+  text-align: center;
+}

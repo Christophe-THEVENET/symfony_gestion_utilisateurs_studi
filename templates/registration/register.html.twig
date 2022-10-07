@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<section>
+    {# {% if errors %}
+    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %} #}
+
+
+
+    <div class="example-wrapper mb-5">
+        <h1>Inscription ✅</h1>
+    </div>
+
+
+    {#
+    {{ form_start(registrationForm, {'attr': {'id': 'register_form'}}) }}
+
+    {{ form_label(registrationForm.username, 'Pseudonyme', { 'attr': {'class': ''} }) }}
+    {{ form_widget(registrationForm.username) }}
+
+    {{ form_label(registrationForm.plainPassword, 'Mot de passe', { 'attr': {'class': ''} }) }}
+    {{ form_widget(registrationForm.plainPassword) }}
+    {{ form_errors(registrationForm.plainPassword) }}
+
+    {{ form_label(registrationForm.agreeTerms, 'accepter conditions', { 'attr': {'class': ''} }) }}
+    {{ form_widget(registrationForm.agreeTerms) }}
+
+
+
+    <button type="submit" class="btn btn-info">S'inscrire</button>
+    {{ form_end(registrationForm) }} #}
+
+    <div class="alert-password" id="alert">
+        Les mots de passe ne sont pas identiques
+    </div>
+
+
+
+    {{ form_start(registrationForm, {'attr': {'id': 'register-form'}}) }}
+    {# utilisation de classes bootstrap pour la mise en forme #}
+    <div>
+        {{ form_errors(registrationForm.username, {'attr': {'id': 'alert-username'}}) }}
+        {{ form_label(registrationForm.username) }}
+        {{ form_widget(registrationForm.username) }}
+    </div>
+    <div>
+        {{ form_errors(registrationForm.plainPassword, {'attr': {'id': 'alert-password'}}) }}
+        {{ form_label(registrationForm.plainPassword) }}
+        <div class="mdp1">
+            {{ form_widget(registrationForm.plainPassword) }}
+            <i class="fa-solid fa-eye" id="eye1"></i>
+        </div>
+    </div>
+    <div>
+        <label for="verifpass">Saisir une seconde fois le mot de passe</label>
+        <div class="mdp2">
+            <input type="password" id="verifpass" required class="form-control">
+            <i class="fa-solid fa-eye" id="eye2"></i>
+        </div>
+    </div>
+    <div>
+        {{ form_label(registrationForm.agreeTerms) }}
+        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'my-3'}}) }}
+    </div>
+
+    <button type="submit" class="btn btn-success" id="register-button">{{ button_label|default('S\'inscrire')
+        }}</button>
+    {{ form_end(registrationForm) }}
+
+    <a href="{{ path('app_home') }}">Revenir à l'acceuil</a>
+
+
+
+
+
+
+
+</section>
+
+<script src="{{ asset('script/register.js') }}"></script>
+{% endblock %}
