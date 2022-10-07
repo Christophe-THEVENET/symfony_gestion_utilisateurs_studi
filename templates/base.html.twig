@@ -51,7 +51,12 @@
                         </li>
                         {% if app.user %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/post/new">Produits</a>
+                            <a class="nav-link" href="/product">Produits</a>
+                        </li>
+                        {% endif %}
+                        {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user">Utilisateurs</a>
                         </li>
                         {% endif %}
                     </ul>

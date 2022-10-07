@@ -43,7 +43,7 @@ class RegistrationFormType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control mb-3'],
+                'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control '],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Entrez un mot de passe',
@@ -55,37 +55,8 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-            ->add('Roles', ChoiceType::class, [
-                'required' => true,
-                'multiple' => false,
-                'expanded' => false,
-                'choices'  => [
-                    'User' => 'ROLE_USER',
-                    'Partner' => 'ROLE_PARTNER',
-                    'Admin' => 'ROLE_ADMIN',
-                ],
             ]);
-        // Data transformer
-        $builder->get('Roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesArray) {
-                    // transform the array to a string
-                    return count($rolesArray) ? $rolesArray[0] : null;
-                },
-                function ($rolesString) {
-                    // transform the string back to an array
-                    return [$rolesString];
-                }
-            ));
     }
-
-
-
-
-
-
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {
