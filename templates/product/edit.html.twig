@@ -1,13 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Product{% endblock %}
+{% block title %}Modifier le produit{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+{% endblock %}
+
 
 {% block body %}
-    <h1>Edit Product</h1>
 
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+<section>
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
+    <div class="example-wrapper mb-5">
+        <h1>Modifier le produit✅</h1>
+    </div>
 
-    {{ include('product/_delete_form.html.twig') }}
+
+
+    {{ form_start(form, {'attr': {'id': 'register-form'}}) }}
+    {# utilisation de classes bootstrap pour la mise en forme #}
+    <div>
+        {{ form_errors(form.name, {'attr': {'id': 'alert-username'}}) }}
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+    </div>
+
+
+    <button type="submit" class="btn btn-success" id="register-button">{{ button_label|default('Modifier le produit')
+        }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_home') }}">Revenir à l'acceuil</a>
+
+
+
+
+
+
+
+</section>
+
+<script src="{{ asset('script/register.js') }}"></script>
 {% endblock %}
