@@ -15,5 +15,5 @@ L'objectif de se projet:
 - seul l'admin peut les supprimer
 
 <center>
-![Screenshot](ToutPasCher.png) 
+![image info](ToutPasCher.png)
 </center>
