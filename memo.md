@@ -323,7 +323,11 @@ php bin/console server:dump --format=html > public/dump.html
 
 
 
+- on configure le voter
 
+- on utilise is-granted dans twig avec en parametre la permission et l'objet pour cacher les boutons
+
+- on 
 
 
 

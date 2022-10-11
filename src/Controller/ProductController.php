@@ -52,6 +52,9 @@ class ProductController extends AbstractController
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
     {
+
+        // bloque la route si l'utilisateur n'est pas le vendeur
+        $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
         // recuperer le role de l utilisateur
         dump($this->getUser()->getRoles());
         $form = $this->createForm(ProductType::class, $product);
@@ -72,6 +75,8 @@ class ProductController extends AbstractController
     #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
     {
+         // bloque la route si l'utilisateur n'est pas le vendeur
+       /*   $this->denyAccessUnlessGranted('PRODUCT_DELETE', $product); */
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $productRepository->remove($product, true);
         }

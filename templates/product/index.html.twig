@@ -3,35 +3,38 @@
 {% block title %}liste des produits{% endblock %}
 
 {% block body %}
-    <h1>liste des produits</h1>
+<h1>liste des produits</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom du produit</th>
-                <th>Vendeur</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom du produit</th>
+            <th>Vendeur</th>
+            <th>actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.owner.username }}</td>
-                <td>
-                    <a  class="btn btn-primary m-2" href="{{ path('app_product_show', {'id': product.id}) }}">voir</a>
-                    <a class="btn btn-info m-2" href="{{ path('app_product_edit', {'id': product.id}) }}">modifier</a>
-                </td>
-            </tr>
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.owner.username }}</td>
+            <td>
+                <a class="btn btn-primary m-2" href="{{ path('app_product_show', {'id': product.id}) }}">voir</a>
+               {#  cache le bouton si la personne n est pas le vendeur a l'aide du voter #}
+                {% if is_granted('PRODUCT_EDIT', product) %}
+                <a class="btn btn-info m-2" href="{{ path('app_product_edit', {'id': product.id}) }}">modifier</a>
+                {% endif %}
+            </td>
+        </tr>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+        <tr>
+            <td colspan="3">no records found</td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-    <a class="btn btn-warning m-2" href="{{ path('app_product_new') }}">ajouter un produit</a>
+<a class="btn btn-warning m-2" href="{{ path('app_product_new') }}">ajouter un produit</a>
 {% endblock %}

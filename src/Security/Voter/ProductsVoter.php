@@ -2,10 +2,12 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\User;
 use App\Entity\Product;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class ProductsVoter extends Voter
 {
@@ -13,6 +15,22 @@ class ProductsVoter extends Voter
     public const PRODUCT_EDIT = 'PRODUCT_EDIT';
     public const PRODUCT_DELETE = 'PRODUCT_DELETE';
 
+    // ********* récuperer les roles des utilisateurs **********
+
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security; // permet de vérifier les roles de l'utilisateur
+    }
+
+
+    // *****************************************************
+
+
+
+    // on vérifie si on envoi les bonnes informations sinon pas de permissions
     protected function supports(string $attribute, $product): bool
     {
         // replace with your own logic
@@ -22,26 +40,55 @@ class ProductsVoter extends Voter
             && $product instanceof Product;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+
+    protected function voteOnAttribute(string $attribute, $product, TokenInterface $token): bool
     {
+        // on récupère le user 
         $user = $token->getUser();
-        // if the user is anonymous, do not grant access
+        // on vérifie si il est connecté (sinon pas de permissions)
         if (!$user instanceof UserInterface) {
             return false;
         }
 
-        // ... (check conditions and return true to grant permission) ...
+        // on vérifie si l'utilisateur est admin (si oui il a tout les droits)
+        if ($this->security->isGranted('ROLE_ADMIN')) return true;
+
+
+        // on vérifie si le produit à un vendeur
+        if (null === $product->getOwner()) return false;
+
+
+
+        // ... (vérifie le type de permissions qu on demande) ...
         switch ($attribute) {
             case self::PRODUCT_EDIT:
-                // logic to determine if the user can EDIT
-                // return true or false
+                // on vérifie si on peut éditer
+                return $this->canEdit($product, $user);
                 break;
             case self::PRODUCT_DELETE:
-                // logic to determine if the user can VIEW
-                // return true or false
+                // on vérifie si on peut supprimer
+                return $this->canDelete($product, $user);
+
                 break;
         }
 
         return false;
+    }
+
+    private function canEdit(Product $product, User $user)
+    {
+        // le vendeur du produit peut la modifier
+        return $user === $product->getOwner();
+    }
+
+    private function canDelete(/* Product $product, User $user */)
+    {
+
+        // seul le super admin peut supprimer
+        if ($this->security->isGranted('ROLE_SUPER_ADMIN')) return true;
+
+
+        // le vendeur du produit peut la supprimer
+        /* return $user === $product->getOwner(); */
     }
 }
