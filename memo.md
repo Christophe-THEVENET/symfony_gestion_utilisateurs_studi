@@ -1,3 +1,4 @@
+
 **lien aide formatage de text Markdown**
 
 > > https://support.zendesk.com/hc/fr/articles/4408846544922-Formatage-de-texte-avec-Markdown
@@ -311,6 +312,26 @@ dev.log et prod.log
 php bin/console server:dump --format=html > public/dump.html
 ``
 
+
+
+
+## creer un voter
+
+
+``php bin/console make:voter
+``
+
+
+
+
+
+
+
+
+
+
+
+
 ---------------------------------- methode bundle + univorleans ---------------------
 
 
@@ -320,3 +341,11 @@ dans le Security/ LoginFormAthentificate bien rediriger vers l acceuil dans la m
 
 
 dans translation.yaml modifier la langue par défaut
+
+
+# verifier les prerequis du serveur pour une bonne utilisation de symfony
+
+
+symfony check:requirements
+
+

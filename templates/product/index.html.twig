@@ -19,10 +19,10 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.user.username }}</td>
+                <td>{{ product.owner.username }}</td>
                 <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">voir</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">modifier</a>
+                    <a  class="btn btn-primary m-2" href="{{ path('app_product_show', {'id': product.id}) }}">voir</a>
+                    <a class="btn btn-info m-2" href="{{ path('app_product_edit', {'id': product.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_product_new') }}">ajouter un produit</a>
+    <a class="btn btn-warning m-2" href="{{ path('app_product_new') }}">ajouter un produit</a>
 {% endblock %}

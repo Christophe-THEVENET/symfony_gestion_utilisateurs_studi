@@ -1,5 +1,21 @@
 
 
+
+
+
+{# utilisateur ne peux pas modifier celui d un autre
+    
+    {% if app.user.username is same as(post.user.username) %} dans le index.html.twig des posts #}
+
+
+
+
+
+
+
+
+
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Modifier{% endblock %}
@@ -59,7 +75,7 @@
         {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'my-3'}}) }}
     </div> #}
 
-    <button type="submit" class="btn btn-success" id="register-button">{{ button_label|default('S\'inscrire')
+    <button type="submit" class="btn btn-success m-2" id="register-button">{{ button_label|default('Modifier l\'utilisteur')
         }}</button>
     {{ form_end(registrationForm) }}
 

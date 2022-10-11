@@ -16,8 +16,9 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    private ?User $user = null;
+    #[ORM\ManyToOne(inversedBy: 'products',targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "owner_id", referencedColumnName: "id", onDelete: "CASCADE")]
+    private ?User $owner = null;
 
     public function getId(): ?int
     {
@@ -36,14 +37,14 @@ class Product
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getOwner(): ?User
     {
-        return $this->user;
+        return $this->owner;
     }
 
-    public function setUser(?User $user): self
+    public function setOwner(?User $owner): self
     {
-        $this->user = $user;
+        $this->owner = $owner;
 
         return $this;
     }

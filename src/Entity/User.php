@@ -122,7 +122,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->setUser($this);
+            $product->setOwner($this);
         }
 
         return $this;
@@ -132,8 +132,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($product->getUser() === $this) {
-                $product->setUser(null);
+            if ($product->getOwner() === $this) {
+                $product->setOwner(null);
             }
         }
 

@@ -22,6 +22,26 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+
+
+
+        /* 
+    pour activer l option se souvenir de moi au login il faut injecter ds le security.yaml:
+                           
+       remember_me:
+        secret:   '%kernel.secret%'
+        lifetime: 604800 # 1 week in seconds
+         path: / 
+         
+         et modifier le template login:
+
+            <div class="checkbox mb-3">
+                <label>
+                      <input type="checkbox" name="_remember_me"> Remember me
+                 </label>
+            </div>
+         
+         */
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
@@ -30,4 +50,3 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
-
