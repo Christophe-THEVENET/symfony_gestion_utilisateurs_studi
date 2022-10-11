@@ -38,7 +38,6 @@ class UserEditFormType extends AbstractType
         'choices'  => [
           'User' => 'ROLE_USER',
           'Admin' => 'ROLE_ADMIN',
-          'Super-Admin' => 'ROLE_SUPER_ADMIN',
         ],
       ]);
     // Data transformer

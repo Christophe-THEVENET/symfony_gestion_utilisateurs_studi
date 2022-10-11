@@ -5,11 +5,16 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Security\Voter\ProductsVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+
+    // ************************* LISTE DES PRODUITS ***************************************
 #[Route('/product')]
 class ProductController extends AbstractController
 {
@@ -21,7 +26,10 @@ class ProductController extends AbstractController
         ]);
     }
 
+    // ************************* AJOUTER UN PRODUIT ********************(inscrit)*******************
+    // il faut etre inscrit pour créer un produit
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER', message: 'Impossible d\'accéder sans inscription')]
     public function new(Request $request, ProductRepository $productRepository): Response
     {
         $product = new Product();
@@ -29,6 +37,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // attribut le produit a l utilisateur connecté
             $product->setOwner($this->getUser());
             $productRepository->save($product, true);
 
@@ -41,6 +50,7 @@ class ProductController extends AbstractController
         ]);
     }
 
+    // ************************* VOIR UN PRODUIT ***************************************
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
@@ -49,14 +59,15 @@ class ProductController extends AbstractController
         ]);
     }
 
+    // ************************* EDITER UN PRODUIT ****************(inscrit et possesseur ou admin)***********************
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER', message: 'Impossible d\'accéder sans inscription')]
     public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
     {
 
-        // bloque la route si l'utilisateur n'est pas le vendeur
-        $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
-        // recuperer le role de l utilisateur
-        dump($this->getUser()->getRoles());
+        // bloque la route si l'utilisateur n'est pas le vendeur ou l admin
+        $this->denyAccessUnlessGranted(ProductsVoter::PRODUCT_EDIT, $product);
+
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
@@ -72,11 +83,13 @@ class ProductController extends AbstractController
         ]);
     }
 
+     // ************************* SUPPRIMER UN PRODUIT ****************(inscrit et admin)***********************
     #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER', message: 'Impossible d\'accéder sans inscription')]
     public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
     {
-         // bloque la route si l'utilisateur n'est pas le vendeur
-       /*   $this->denyAccessUnlessGranted('PRODUCT_DELETE', $product); */
+        // bloque la route si l'utilisateur n'est pas le vendeur
+        $this->denyAccessUnlessGranted(ProductsVoter::PRODUCT_DELETE, $product);
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $productRepository->remove($product, true);
         }

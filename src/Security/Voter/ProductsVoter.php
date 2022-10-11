@@ -15,17 +15,14 @@ class ProductsVoter extends Voter
     public const PRODUCT_EDIT = 'PRODUCT_EDIT';
     public const PRODUCT_DELETE = 'PRODUCT_DELETE';
 
-    // ********* récuperer les roles des utilisateurs **********
 
-
+    // ********* récuperer le role de l'utilisateur **********
     private $security;
 
     public function __construct(Security $security)
     {
         $this->security = $security; // permet de vérifier les roles de l'utilisateur
     }
-
-
     // *****************************************************
 
 
@@ -50,7 +47,8 @@ class ProductsVoter extends Voter
             return false;
         }
 
-        // on vérifie si l'utilisateur est admin (si oui il a tout les droits)
+
+        // on vérifie si l'utilisateur est admin (si oui il a tout les droits) et donc return true
         if ($this->security->isGranted('ROLE_ADMIN')) return true;
 
 
@@ -67,8 +65,7 @@ class ProductsVoter extends Voter
                 break;
             case self::PRODUCT_DELETE:
                 // on vérifie si on peut supprimer
-                return $this->canDelete($product, $user);
-
+                return $this->canDelete();
                 break;
         }
 
@@ -77,15 +74,17 @@ class ProductsVoter extends Voter
 
     private function canEdit(Product $product, User $user)
     {
+
         // le vendeur du produit peut la modifier
         return $user === $product->getOwner();
     }
 
-    private function canDelete(/* Product $product, User $user */)
+    private function canDelete()
     {
 
-        // seul le super admin peut supprimer
-        if ($this->security->isGranted('ROLE_SUPER_ADMIN')) return true;
+        // seul l admin peut supprimer sinon return false
+        if ($this->security->isGranted('ROLE_ADMIN')) return true;
+        return false;
 
 
         // le vendeur du produit peut la supprimer

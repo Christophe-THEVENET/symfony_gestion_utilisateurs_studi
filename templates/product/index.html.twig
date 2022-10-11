@@ -22,7 +22,7 @@
             <td>{{ product.owner.username }}</td>
             <td>
                 <a class="btn btn-primary m-2" href="{{ path('app_product_show', {'id': product.id}) }}">voir</a>
-               {#  cache le bouton si la personne n est pas le vendeur a l'aide du voter #}
+                {# cache le bouton si la personne n est pas le vendeur a l'aide du voter #}
                 {% if is_granted('PRODUCT_EDIT', product) %}
                 <a class="btn btn-info m-2" href="{{ path('app_product_edit', {'id': product.id}) }}">modifier</a>
                 {% endif %}
@@ -35,6 +35,7 @@
         {% endfor %}
     </tbody>
 </table>
-
+{% if is_granted('ROLE_USER') %}
 <a class="btn btn-warning m-2" href="{{ path('app_product_new') }}">ajouter un produit</a>
+{% endif %}
 {% endblock %}
