@@ -350,6 +350,16 @@ dans translation.yaml modifier la langue par défaut
 # verifier les prerequis du serveur pour une bonne utilisation de symfony
 
 
-symfony check:requirements
+``symfony check:requirements``
 
 
+
+# installer Mailer 
+
+
+``composer r symfony/mailer``
+
+
+# installer sendgrid
+
+``composer r sendgrid-mailer``
