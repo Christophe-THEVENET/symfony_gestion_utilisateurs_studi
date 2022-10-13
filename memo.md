@@ -363,3 +363,14 @@ dans translation.yaml modifier la langue par défaut
 # installer sendgrid
 
 ``composer r sendgrid-mailer``
+
+
+
+
+# formater date en francais twig
+
+
+``composer require twig/intl-extra``
+
+puis utiliser |format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") dans twig
+

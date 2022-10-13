@@ -15,14 +15,6 @@ class DefaultController extends AbstractController
     public function index(MailerInterface $mailer): Response
     {
 
-        $email = (new Email())
-        ->from('christophethevenet2.0@gmail.com')
-        ->to('christophethevenet@yahoo.fr')
-        ->subject('This e-mail is for testing purpose')
-        ->text('This is the text version')
-        ->html('<p>This is the HTML version</p>')
-    ;
-    $mailer->send($email);
 
 
         return $this->render('default/home.html.twig', [
@@ -30,3 +22,4 @@ class DefaultController extends AbstractController
         ]);
     }
 }
+

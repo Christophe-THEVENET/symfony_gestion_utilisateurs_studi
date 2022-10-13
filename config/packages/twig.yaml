@@ -1,5 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    paths:
+        # "images" est un alias faisant référence au chemin défini
+        '%kernel.project_dir%/public/assets/images': images
 
 when@test:
     twig:
