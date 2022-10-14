@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+
+{% endblock %}
+
+
+
+{% block body %}
+
+<section>
+  {# {% if errors %}
+  <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+  {% endif %} #}
+
+
+
+  <div class="example-wrapper mb-5">
+    <h1>Formulaire de contact ✅</h1>
+  </div>
+
+  {{ form_start(form) }}
+  {{ form_row(form.name) }}
+  {{ form_row(form.email) }}
+  {{ form_rest(form) }}
+  {# <input type="envoyer" /> #}
+  <button type="submit" class="btn btn-success" id="register-button">{{ button_label|default('Envoyer')
+    }}</button>
+  {{ form_end(form) }}
+
+  <a href="{{ path('app_home') }}">Revenir à l'acceuil</a>
+
+
+
+</section>
+
+<script src="{{ asset('script/register.js') }}"></script>
+{% endblock %}
+

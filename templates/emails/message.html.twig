@@ -1,0 +1,27 @@
+{# templates/email/contact.html.twig #}
+{% apply inky_to_html|inline_css(source('@css/email.css')) %}
+<container>
+    <row>
+        <columns>
+            <img src="{{ email.image('@images/contact.jpg') }}" alt="Header">
+        </columns>
+    </row>
+    <row>
+        <columns>
+            <h3>{{ email.replyTo[0].name }} vous a envoyé un message :</h3>
+        </columns>
+    </row>
+    <spacer size="32"></spacer>
+    <row>
+        <columns>
+            <p>{{ content|nl2br }}</p>
+        </columns>
+    </row>
+    <spacer size="32"></spacer>
+    <row>
+        <columns>
+            <p>Répondre à l'e-mail pour répondre à {{ email.replyTo[0].address }}</p>
+        </columns>
+    </row>
+</container>
+{% endapply %}

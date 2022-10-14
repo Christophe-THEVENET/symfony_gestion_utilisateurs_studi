@@ -1,10 +1,28 @@
-  
-
-<img src="{{ email.image('@images/header.jpg') }}" alt="Logo">
 
 
-<h1>Bonjour {{user.username}},</h1>
 
-
-<p>Félicitation! Vôtre compte à été crée le: {{date|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY")}} </p>
-
+{% apply inky_to_html|inline_css(source('@css/email.css')) %}
+<container>
+  <row>
+    <columns>
+      <img src="{{ email.image('@images/header.jpg') }}" alt="Header">
+    </columns>
+  </row>
+  <spacer size="16"></spacer>
+  <row class="main">
+    <columns>
+      <h3>Bonjour {{ user.username }},</h3>
+      <p>Félicitation! Vôtre compte à été crée le: {{date|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY")}}
+      </p>
+    </columns>
+  </row>
+  <spacer size="16"></spacer>  {# ca crée un espace #}
+  <row class="btn">
+    <columns>
+      <center>
+        <button href="#">Se connecter</button>
+      </center>
+    </columns>
+  </row>
+</container>
+{% endapply %}

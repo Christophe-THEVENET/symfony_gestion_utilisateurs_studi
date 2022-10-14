@@ -374,3 +374,20 @@ dans translation.yaml modifier la langue par défaut
 
 puis utiliser |format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") dans twig
 
+
+# styliser les emails
+
+
+pour utiliser le css
+
+``composer require twig/extra-bundle twig/cssinliner-extra``
+
+
+pour le positionnement (le css ne marche pas ilfaut utiliser des tableaux comme avant)
+
+``composer require twig/extra-bundle twig/inky-extra``
+
+pour le responsive, il faut telecharger un fichier et l ajouter au template
+
+decommenter xsl ds php.ini
+
