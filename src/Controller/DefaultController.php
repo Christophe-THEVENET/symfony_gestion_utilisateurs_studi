@@ -13,12 +13,13 @@ use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends AbstractController
 {
     //**************** HOME ************************* */
     #[Route('/home', name: 'app_home')]
-    public function index(MailerInterface $mailer): Response
+    public function index(): Response
     {
 
         return $this->render('default/home.html.twig', [
@@ -29,7 +30,7 @@ class DefaultController extends AbstractController
 
     //**************** CONTACT ************************* */
     #[Route('/contact', name: 'app_contact')]
-    public function addContactMessage(MailerInterface $mailer, Request $request,FlashyNotifier $flashy): Response
+    public function addContactMessage(MailerInterface $mailer, Request $request, FlashyNotifier $flashy): Response
     {
 
         $message = new Message();
@@ -61,4 +62,10 @@ class DefaultController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+//********************************************************** */
+
+
 }
+
+
+

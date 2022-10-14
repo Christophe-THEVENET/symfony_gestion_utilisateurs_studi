@@ -391,3 +391,13 @@ pour le responsive, il faut telecharger un fichier et l ajouter au template
 
 decommenter xsl ds php.ini
 
+
+
+# installer Event Subscribers
+
+``php bin/console make:subscriber``
+
+liste des évenements écoutés
+
+``php bin/console debug:event-dispatcher kernel.request``
+
