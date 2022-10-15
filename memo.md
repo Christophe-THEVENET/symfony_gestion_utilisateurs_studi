@@ -405,3 +405,11 @@ liste des évenements écoutés
 
 ``php bin/console debug:event-dispatcher kernel.request``
 
+
+
+# créer un evenement
+
+- créer l evenement 
+- dispatcher l evenement
+- créer l event subscriber (make:subscriber)
+
