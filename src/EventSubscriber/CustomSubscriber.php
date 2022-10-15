@@ -10,13 +10,13 @@ class CustomSubscriber implements EventSubscriberInterface
 {
     public function onKernelRequest(RequestEvent $event): void
     {
-        dd($event);
+       /*   dd($event);  */
     }
-
+    // liste les evenements
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => ['onKernelRequest',20] // le chiffre est la proirité de l event
+            RequestEvent::class => ['onKernelRequest', 20] // le chiffre est la priorité de l event
         ];
     }
 }

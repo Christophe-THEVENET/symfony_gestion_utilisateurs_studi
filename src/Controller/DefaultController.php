@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Message;
 use App\Form\ContactType;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -12,16 +13,16 @@ use Symfony\Component\Mailer\MailerInterface;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DefaultController extends AbstractController
 {
     //**************** HOME ************************* */
     #[Route('/home', name: 'app_home')]
-    public function index(): Response
+    public function index(LoggerInterface $logger): Response
     {
-
+        /* $logger->info('Mon premier log'); */
         return $this->render('default/home.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
@@ -62,10 +63,7 @@ class DefaultController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-//********************************************************** */
+    //********************************************************** */
 
 
 }
-
-
-

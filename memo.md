@@ -391,6 +391,10 @@ pour le responsive, il faut telecharger un fichier et l ajouter au template
 
 decommenter xsl ds php.ini
 
+# installer EventDispatcher
+
+``composer r symfony/event-dispatcher``
+
 
 
 # installer Event Subscribers
