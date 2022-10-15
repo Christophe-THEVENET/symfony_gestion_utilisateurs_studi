@@ -59,7 +59,7 @@ class DefaultController extends AbstractController
 
             // ***************** envoie evenement *****(mesage ds log)**********
             $data = $form->getData();
-            $event = new ContactSentEvent(($data->getEmail()), ($data->getName()));
+            $event = new ContactSentEvent(($data->getName()), ($data->getContent()), ($data->getEmail()));
             /*     $event = new ContactSentEvent('toto', 'tata'); */
             $dispatcher->dispatch($event);
             // ****************************************************
