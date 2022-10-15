@@ -6,7 +6,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 
 
-
+// ******** on crée un evenement (envoi message du formulaire de contact) ************
 
 class ContactSentEvent extends Event
 {

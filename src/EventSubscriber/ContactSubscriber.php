@@ -2,23 +2,21 @@
 
 namespace App\EventSubscriber;
 
-use App\Model\Message;
 use Psr\Log\LoggerInterface;
 use App\Event\ContactSentEvent;
 use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\DependencyInjection\Loader\Configurator\mailer;
+
+
+
 
 class ContactSubscriber implements EventSubscriberInterface
 {
 
-
-    // on injecte le logger
-    private $logger;
-    public function __construct(LoggerInterface $logger,MailerInterface $mailer)
+    // on injecte le logger et le mailer
+    public function __construct(LoggerInterface $logger, MailerInterface $mailer)
     {
         $this->logger = $logger;
         $this->mailer = $mailer;
@@ -26,10 +24,7 @@ class ContactSubscriber implements EventSubscriberInterface
 
 
 
-
-
-
-    // ecoute l evenement
+    // ***************** ecoute l evenement **********************************
     public function onContactSendEvent(ContactSentEvent $event): void
     {
         // recupère le message
@@ -40,21 +35,20 @@ class ContactSubscriber implements EventSubscriberInterface
         // ******************************************************************************
 
 
-        // ************************* envoie email **************************************
 
-         $email = (new TemplatedEmail())
+        // ************************* envoie email **************************************
+        $email = (new TemplatedEmail())
             ->from('christophethevenet2.0@gmail.com')
             ->to('christophethevenet@yahoo.fr')
             ->replyTo(new Address($message->getEmail(), $message->getName()))
             ->subject($message->getSubject())
             ->context([
                 'message' => $message,
-                 'content' => $message->getContent() 
-             ])
+                'content' => $message->getContent()
+            ])
             ->htmlTemplate('emails/message.html.twig');
-        $this->mailer->send($email);  
+        $this->mailer->send($email);
         // ******************************************************************************
-
 
 
     }
@@ -62,7 +56,6 @@ class ContactSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ContactSentEvent::class => 'onContactSendEvent',
             ContactSentEvent::class => 'onContactSendEvent',
         ];
     }
