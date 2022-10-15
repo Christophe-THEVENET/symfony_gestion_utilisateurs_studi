@@ -1,37 +1,31 @@
 <?php // src/Event/ContactSentEvent.php
 
 namespace App\Event;
-
+use App\Model\Message;
 use Symfony\Contracts\EventDispatcher\Event;
+
+
+
+
 
 class ContactSentEvent extends Event
 {
-  private $email;
-  private $content;
-  private $name;
+  private Message $message;
 
-  public function __construct(string $name,string $content, string $email)
+  public function __construct(Message $message)
   {
-    $this->email = $email;
-    $this->content = $content;
-    $this->name = $name;
+    $this->message = $message;
+   
   }
 
-  public function getEmail(): string
+  
+  public function getMessage(): Message
   {
-    return $this->email;
+    return $this->message;
   }
 
-  public function getContent(): string
-  {
-    return $this->content;
-  }
+ 
+ 
 
-  /**
-   * Get the value of name
-   */
-  public function getName()
-  {
-    return $this->name;
-  }
+  
 }

@@ -411,5 +411,5 @@ liste des évenements écoutés
 
 - créer l evenement 
 - dispatcher l evenement
-- créer l event subscriber (make:subscriber)
+- écouter l evenement subscriber (make:subscriber)
 

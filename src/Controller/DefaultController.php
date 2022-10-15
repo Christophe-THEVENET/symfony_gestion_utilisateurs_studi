@@ -31,19 +31,19 @@ class DefaultController extends AbstractController
 
     //**************** CONTACT ************************* */
     #[Route('/contact', name: 'app_contact')]
-    public function addContactMessage(MailerInterface $mailer, Request $request, FlashyNotifier $flashy, EventDispatcherInterface $dispatcher): Response
+    public function addContactMessage(Request $request, FlashyNotifier $flashy, EventDispatcherInterface $dispatcher, MailerInterface $mailer): Response
     {
 
         $message = new Message();
-
         $form = $this->createForm(ContactType::class, $message);
-
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
 
+
+            
+
             // ****************** envoie d'email *****************
-            $email = (new TemplatedEmail())
+            /*     $email = (new TemplatedEmail())
                 ->from('christophethevenet2.0@gmail.com')
                 ->to('christophethevenet@yahoo.fr')
                 ->replyTo(new Address($message->getEmail(), $message->getName()))
@@ -53,16 +53,21 @@ class DefaultController extends AbstractController
                     'content' => $message->getContent()
                 ])
                 ->htmlTemplate('emails/message.html.twig');
-            $mailer->send($email);
+            $mailer->send($email); */
             // ****************************************************
+
+            // *******  dispatch ********** envoie de l evenement *****(mesage ds log)**********
+            $event = new ContactSentEvent($message);
+            $dispatcher->dispatch($event);
+            // ********************************************************************************
 
 
             // ***************** envoie evenement *****(mesage ds log)**********
-            $data = $form->getData();
-            $event = new ContactSentEvent(($data->getName()), ($data->getContent()), ($data->getEmail()));
+            /*  $data = $form->getData();
+            $event = new ContactSentEvent(($data->getName()), ($data->getEmail()), ($data->getSubject()), ($data->getContent())); */
             /*     $event = new ContactSentEvent('toto', 'tata'); */
-            $dispatcher->dispatch($event);
-            // ****************************************************
+            /*  $dispatcher->dispatch($event); */
+
 
             // ***************** notif succée login ***************
             $flashy->success('Votre message a bien été envoyé', '');
