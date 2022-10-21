@@ -20,10 +20,13 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
-    
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    private UrlGeneratorInterface $urlGenerator;
+
+    // juste  private UrlGeneratorInterface $urlGenerator sans l'attribut déclaré est l'affectation $this cause erreur (peut-être la version de PHP) 
+    public function __construct(UrlGeneratorInterface $urlGenerator)
     {
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function authenticate(Request $request): Passport
