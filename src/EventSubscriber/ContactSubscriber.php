@@ -16,10 +16,8 @@ class ContactSubscriber implements EventSubscriberInterface
 {
 
     // on injecte le logger et le mailer
-    public function __construct(LoggerInterface $logger, MailerInterface $mailer)
+    public function __construct(private readonly LoggerInterface $logger, private  MailerInterface $mailer)
     {
-        $this->logger = $logger;
-        $this->mailer = $mailer;
     }
 
 
@@ -52,7 +50,7 @@ class ContactSubscriber implements EventSubscriberInterface
 
 
     }
-
+    // liste des évenements auquels on est abonné
     public static function getSubscribedEvents(): array
     {
         return [

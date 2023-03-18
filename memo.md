@@ -365,6 +365,8 @@ dans translation.yaml modifier la langue par défaut
 ``composer r sendgrid-mailer``
 
 
+ou mailtrap (copier coller le mailer DSN dans le .env.local)
+
 
 
 # formater date en francais twig
