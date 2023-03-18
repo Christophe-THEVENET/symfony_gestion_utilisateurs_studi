@@ -27,8 +27,8 @@ class ProductController extends AbstractController
     }
 
     // ************************* AJOUTER UN PRODUIT ********************(inscrit)*******************
-    // il faut etre inscrit pour créer un produit
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
+    // il faut etre inscrit pour créer un produit
     #[IsGranted('ROLE_USER', message: 'Impossible d\'accéder sans inscription')]
     public function new(Request $request, ProductRepository $productRepository): Response
     {
